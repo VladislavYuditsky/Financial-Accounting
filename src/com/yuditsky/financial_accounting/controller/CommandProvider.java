@@ -1,6 +1,8 @@
 package com.yuditsky.financial_accounting.controller;
 
 import com.yuditsky.financial_accounting.controller.command.Command;
+import com.yuditsky.financial_accounting.controller.impl.SignIn;
+import com.yuditsky.financial_accounting.controller.impl.WrongRequest;
 
 import java.util.HashMap;
 import java.util.Map;
