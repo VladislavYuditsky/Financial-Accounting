@@ -1,8 +1,7 @@
 package com.yuditsky.financial_accounting.controller;
 
 import com.yuditsky.financial_accounting.controller.command.Command;
-import com.yuditsky.financial_accounting.controller.impl.SignIn;
-import com.yuditsky.financial_accounting.controller.impl.WrongRequest;
+import com.yuditsky.financial_accounting.controller.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +12,7 @@ public class CommandProvider {
 
     CommandProvider() {
         repository.put(CommandName.SIGN_IN, new SignIn());
+        repository.put(CommandName.ADD, new Add());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequest());
     }
 
