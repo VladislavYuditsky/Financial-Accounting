@@ -1,0 +1,35 @@
+
+class FinInfoReader implements Closable {
+    private static final String DATA_FILE_PATH = "data.file.path"
+
+    Reader reader = new Reader("t.txt");
+
+    String readNote() {
+        return reader.nextLine();
+    }
+
+    public void close() throws IOException {
+        reader.close();
+    }
+
+
+class TransactionDAO implements ...{
+public void authorization(Auth Info authInfo) throws DAOException {
+FinInfoReader finNoteReader = new FinInfoReader();
+
+String finNote;
+while((finNote = finNoteReader.readNote()) != null){
+    if(match(finNote, auth){
+    return true;
+    }
+    return false;
+
+    //try-catch-finaly(close())
+}
+}
+
+private boolean match(String finNote, AuthInfo authInfo);
+
+
+resorces prop.properties
+data.file.path = c:\\
