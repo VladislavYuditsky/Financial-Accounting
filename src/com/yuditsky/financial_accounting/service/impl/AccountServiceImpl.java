@@ -5,7 +5,12 @@ import com.yuditsky.financial_accounting.service.ServiceException;
 
 public class AccountServiceImpl implements AccountService {
     @Override
-    public void add(String amount) throws ServiceException {
+    public void payroll(String amount) throws ServiceException {
+
+    }
+
+    @Override
+    public void payment(String amount) throws ServiceException {
 
     }
 }
