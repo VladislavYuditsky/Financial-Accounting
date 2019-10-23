@@ -2,7 +2,7 @@ package com.yuditsky.financial_accounting.bean;
 
 import java.util.Objects;
 
-public class Account {
+public class Account { //serializable
     private double amount;
 
     public Account(double amount) {

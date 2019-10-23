@@ -13,4 +13,14 @@ public class AccountServiceImpl implements AccountService {
     public void payment(String amount) throws ServiceException {
 
     }
+
+    @Override
+    public void edit(String amount) throws ServiceException {
+
+    }
+
+    @Override
+    public void delete(String amount) throws ServiceException {
+
+    }
 }

@@ -3,8 +3,8 @@ package com.yuditsky.financial_accounting.bean;
 import java.util.Objects;
 
 public class User {
-    private String login;
-    private String password;
+    private String login; //delete
+    private String password; //delete
 
     public User() {
     }
