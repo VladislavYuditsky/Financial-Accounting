@@ -1,33 +1,20 @@
 package com.yuditsky.financial_accounting.bean;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-public class User {
-    private String login; //delete
-    private String password; //delete
+public class User implements Serializable {
+    private String name;
 
-    public User() {
+    public User(String name) {
+        this.name = name;
     }
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public String getName() {
+        return name;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -35,20 +22,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return login.equals(user.login) &&
-                password.equals(user.password);
+        return name.equals(user.name);
     }
 
-    @Override
+    /*@Override
     public int hashCode() {
-        return Objects.hash(login, password);
-    }
+        return Objects.hash(name);
+    }*/
 
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }

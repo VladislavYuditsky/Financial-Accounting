@@ -1,5 +1,12 @@
 package com.yuditsky.financial_accounting.bean;
 
-public enum PaymentType { //enum в bean?
-
+public enum PaymentType { ////////////
+    PRODUCTS,
+    CLOTHING,
+    MEDICINES,
+    TRANSPORT,
+    GIFTS,
+    CAFE,
+    LEISURE,
+    OTHER
 }
