@@ -1,6 +1,6 @@
 package com.yuditsky.financial_accounting.service;
 
-import com.yuditsky.financial_accounting.service.impl.AccountServiceImpl;
+import com.yuditsky.financial_accounting.service.impl.TransactionServiceImpl;
 import com.yuditsky.financial_accounting.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
@@ -8,7 +8,7 @@ public class ServiceFactory {
     private static ServiceFactory instance = new ServiceFactory();
 
     private UserService userServiceImpl = new UserServiceImpl();
-    private AccountService accountServiceImpl = new AccountServiceImpl();
+    private TransactionService transactionServiceImpl = new TransactionServiceImpl();
 
     private ServiceFactory() {
     }
@@ -17,8 +17,8 @@ public class ServiceFactory {
         return instance;
     }
 
-    public AccountService getAccountService() {
-        return accountServiceImpl;
+    public TransactionService getAccountService() {
+        return transactionServiceImpl;
     }
 
     public UserService getUserService() {
