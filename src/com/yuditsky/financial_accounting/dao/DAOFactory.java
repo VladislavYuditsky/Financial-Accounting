@@ -1,13 +1,13 @@
 package com.yuditsky.financial_accounting.dao;
 
-import com.yuditsky.financial_accounting.dao.impl.FileAccountDAO;
+import com.yuditsky.financial_accounting.dao.impl.FileTransactionDAO;
 import com.yuditsky.financial_accounting.dao.impl.FileUserDAO;
 
 public class DAOFactory {
 
     private static final DAOFactory instance = new DAOFactory();
 
-    private final AccountDAO accountDAOImpl = new FileAccountDAO();
+    private final TransactionDAO transactionDAOImpl = new FileTransactionDAO();
     private final UserDAO userDAOImpl = new FileUserDAO();
 
     private DAOFactory() {
@@ -17,8 +17,8 @@ public class DAOFactory {
         return instance;
     }
 
-    public AccountDAO getAccountDAO() {
-        return accountDAOImpl;
+    public TransactionDAO getTransasctionDAO() {
+        return transactionDAOImpl;
     }
 
     public UserDAO getUserDAO() {

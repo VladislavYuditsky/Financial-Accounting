@@ -1,5 +1,9 @@
 package com.yuditsky.financial_accounting.dao;
 
+import java.util.List;
+
 public interface UserDAO {
-    void signIn(String login, String password) throws DAOException;
+
+    String signIn() throws DAOException;
+
 }
