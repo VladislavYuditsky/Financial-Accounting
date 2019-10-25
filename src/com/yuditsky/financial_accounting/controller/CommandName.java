@@ -4,7 +4,7 @@ public enum CommandName {
     SIGN_IN,
     PAYROLL,
     PAYMENT,
-    //TRANSACTIONS, //name&
+    READ_TRANSACTIONS,
     EDIT,
     DELETE,
     WRONG_REQUEST
