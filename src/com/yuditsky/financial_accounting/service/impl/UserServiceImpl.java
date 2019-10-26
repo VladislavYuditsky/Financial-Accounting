@@ -25,39 +25,13 @@ public class UserServiceImpl implements UserService {
         try {
             DAOFactory daoObjectFactory = DAOFactory.getInstance();
             UserDAO userDAO = daoObjectFactory.getUserDAO();
-           // authorizationData = userDAO.signIn();
             authorizationData = userDAO.signIn();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
 
-        if(login.equals(authorizationData.substring(0, authorizationData.indexOf(paramDelimiter))) &&
-            password.equals(authorizationData.substring(authorizationData.indexOf(paramDelimiter) + 1))){
+        return login.equals(authorizationData.substring(0, authorizationData.indexOf(paramDelimiter))) &&
+                password.equals(authorizationData.substring(authorizationData.indexOf(paramDelimiter) + 1));
 
-        }
-
-
-
-
-
-
-
-
-
-        /*
-        if (login == null || login.isEmpty()) {
-            throw new ServiceException("Incorrect login");
-        }
-        // реализуем функционал логинации пользователя в системе
-        try {
-            DAOFactory daoObjectFactory = DAOFactory.getInstance();
-            UserDAO userDAO = daoObjectFactory.getUserDAO();
-            userDAO.signIn(login, password);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-        //....
-         */
-        return true;
     }
 }
