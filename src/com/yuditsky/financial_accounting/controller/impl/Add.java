@@ -1,14 +1,12 @@
 package com.yuditsky.financial_accounting.controller.impl;
 
-import com.yuditsky.financial_accounting.bean.Payment;
-import com.yuditsky.financial_accounting.bean.PaymentType;
-import com.yuditsky.financial_accounting.bean.Transaction;
+import com.yuditsky.financial_accounting.bean.*;
 import com.yuditsky.financial_accounting.controller.command.Command;
 import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 
-public class AddPayment implements Command {
+public class Add implements Command {
 
     private final char paramDelimiter = ' ';
 
@@ -20,15 +18,26 @@ public class AddPayment implements Command {
 
             request = request.substring(request.indexOf(paramDelimiter) + 1);
 
+            String transactionType = request.substring(0, request.indexOf(paramDelimiter));
+
+            request = request.replaceFirst(transactionType, "");
+            request = request.replaceFirst(" ", "");
+
             String strAmount = request.substring(0, request.indexOf(paramDelimiter));
             Double amount = Double.parseDouble(strAmount);
 
             request = request.replaceFirst(strAmount, "");
             request = request.replaceFirst(" ", "");
 
-            PaymentType type = PaymentType.valueOf(request);
+            Transaction transaction = null;
 
-            Transaction transaction = new Payment(amount, type);
+            if(transactionType.equals(Payment.class.getSimpleName().toLowerCase())){
+                PaymentType type = PaymentType.valueOf(request);
+                transaction = new Payment(amount, type);
+            } else {
+                PayrollType type = PayrollType.valueOf(request);
+                transaction = new Payroll(amount, type);
+            }
 
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             TransactionService transactionService = serviceFactory.getTransactionService();
