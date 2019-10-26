@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionServiceImpl implements TransactionService {
+
     @Override
     public List<Transaction> readTransactions() throws ServiceException {
 
-        List<Transaction> transactions = new ArrayList<>();
+        List<Transaction> transactions;
 
         try {
             DAOFactory daoObjectFactory = DAOFactory.getInstance();
