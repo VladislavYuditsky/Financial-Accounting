@@ -1,20 +1,17 @@
 package com.yuditsky.financial_accounting.dao.impl;
 
-import com.yuditsky.financial_accounting.bean.Transaction;
 import com.yuditsky.financial_accounting.dao.DAOException;
 import com.yuditsky.financial_accounting.dao.TransactionDAO;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileTransactionDAO implements TransactionDAO {
     private static final String DATA_FILE_PATH = "resources/user.txt";
     private static final int FIRST_TRANSACTION_POSITION = 3;
 
     @Override
-    public List<String> readTransactions() throws DAOException {
-        ArrayList<String> transactions = new ArrayList<>();
+    public String readTransactions() throws DAOException {
+        StringBuffer transactions = new StringBuffer();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
             int i;
@@ -26,7 +23,8 @@ public class FileTransactionDAO implements TransactionDAO {
             String buffer;
 
             while ((buffer = bufferedReader.readLine()) != null) {
-                transactions.add(buffer);
+                transactions.append(buffer);
+                transactions.append("\n");
             }
 
         } catch (FileNotFoundException e) {
@@ -35,7 +33,7 @@ public class FileTransactionDAO implements TransactionDAO {
             throw new DAOException(e.getMessage(), e);
         }
 
-        return transactions;
+        return String.valueOf(transactions);
     }
 
     @Override
