@@ -17,7 +17,7 @@ public class ServiceFactory {
         return instance;
     }
 
-    public TransactionService getAccountService() {
+    public TransactionService getTransactionService() {
         return transactionServiceImpl;
     }
 

@@ -2,7 +2,7 @@ package com.yuditsky.financial_accounting.service;
 
 public interface TransactionService {
 
-    boolean readTransactions() throws ServiceException;
+    String readTransactions() throws ServiceException;
 
     void add() throws ServiceException;
 
