@@ -2,10 +2,10 @@ package com.yuditsky.financial_accounting.bean;
 
 import java.util.Objects;
 
-public class Payment extends Transaction{ //надо ли имплементить сериализацию?
+public class Payment extends Transaction { //надо ли имплементить сериализацию?
     private PaymentType type;
 
-    protected Payment(double amount, PaymentType type) {
+    public Payment(double amount, PaymentType type) {
         super(amount);
         this.type = type;
     }
@@ -34,7 +34,7 @@ public class Payment extends Transaction{ //надо ли имплементит
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "AddPayment{" +
                 "type=" + type +
                 '}';
     }

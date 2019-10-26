@@ -12,8 +12,8 @@ public class CommandProvider {
 
     CommandProvider() {
         repository.put(CommandName.SIGN_IN, new SignIn());
-        repository.put(CommandName.PAYROLL, new Payroll());
-        repository.put(CommandName.PAYMENT, new Payment());
+        repository.put(CommandName.ADD_PAYROLL, new AddPayroll());
+        repository.put(CommandName.ADD_PAYMENT, new AddPayment());
         repository.put(CommandName.READ_TRANSACTIONS, new ReadTransactions());
         repository.put(CommandName.EDIT, new Edit());
         repository.put(CommandName.DELETE, new Delete());
