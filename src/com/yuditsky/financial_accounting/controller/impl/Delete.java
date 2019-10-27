@@ -21,7 +21,7 @@ public class Delete implements Command {
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             TransactionService transactionService = serviceFactory.getTransactionService();
 
-            if(transactionService.delete(id)){
+            if (transactionService.delete(id)) {
                 response = "Deleted";
             } else {
                 response = "No transaction with given id";

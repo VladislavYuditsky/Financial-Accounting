@@ -35,7 +35,7 @@ public class Add implements Command {
             TransactionIdGenerator transactionIdGenerator = TransactionIdGenerator.getInstance();
             int id = transactionIdGenerator.generate();
 
-            if(transactionType.equals(Payment.class.getSimpleName().toLowerCase())){
+            if (transactionType.equals(Payment.class.getSimpleName().toLowerCase())) {
                 PaymentType type = PaymentType.valueOf(request);
                 transaction = new Payment(id, amount, type);
             } else {

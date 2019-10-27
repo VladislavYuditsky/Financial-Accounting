@@ -29,7 +29,7 @@ public class Edit implements Command { //Поправить все try/catch
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
             TransactionService transactionService = serviceFactory.getTransactionService();
 
-            if(transactionService.editAmount(id, amount)){
+            if (transactionService.editAmount(id, amount)) {
                 response = "Edited";
             } else {
                 response = "No transaction with given id";

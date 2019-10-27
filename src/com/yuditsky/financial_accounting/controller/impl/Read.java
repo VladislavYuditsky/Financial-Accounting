@@ -37,7 +37,7 @@ public class Read implements Command {
 
             response = String.valueOf(stringBuffer);
 
-            if(response.equals("")){
+            if (response.equals("")) {
                 response = "No transaction";
             }
         } catch (ServiceException e) {
