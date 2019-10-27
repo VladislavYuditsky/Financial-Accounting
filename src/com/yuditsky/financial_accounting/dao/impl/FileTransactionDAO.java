@@ -3,70 +3,17 @@ package com.yuditsky.financial_accounting.dao.impl;
 import com.yuditsky.financial_accounting.bean.*;
 import com.yuditsky.financial_accounting.dao.DAOException;
 import com.yuditsky.financial_accounting.dao.TransactionDAO;
+import com.yuditsky.financial_accounting.service.util.Parser;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.yuditsky.financial_accounting.service.util.Constants.DATA_FILE_PATH;
-import static com.yuditsky.financial_accounting.service.util.Constants.PARAM_DELIMITER;
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
 public class FileTransactionDAO implements TransactionDAO {
 
-    private String parseString(Transaction transaction) { //парсеры в логику
-
-        StringBuffer stringBuffer = new StringBuffer();
-
-        stringBuffer.append(transaction.getId() + " ");
-
-        if (transaction.getClass() == Payment.class) {
-            stringBuffer.append(Payment.class.getSimpleName().toLowerCase() + " ");
-        } else {
-            stringBuffer.append(Payroll.class.getSimpleName().toLowerCase() + " ");
-        }
-
-        stringBuffer.append(transaction.getAmount() + " ");
-
-        if (transaction.getClass() == Payment.class) {
-            stringBuffer.append(((Payment) transaction).getType());
-        } else {
-            stringBuffer.append(((Payroll) transaction).getType());
-        }
-
-        return String.valueOf(stringBuffer);
-    }
-
-    private Transaction parseTransaction(String buffer) {
-
-        String strId = buffer.substring(0, buffer.indexOf(PARAM_DELIMITER));
-        int id = Integer.parseInt(strId);
-
-        buffer = buffer.replaceFirst(strId, "");
-        buffer = buffer.replaceFirst(" ", "");
-
-        String transactionType = buffer.substring(0, buffer.indexOf(PARAM_DELIMITER));
-
-        buffer = buffer.replaceFirst(transactionType, "");
-        buffer = buffer.replaceFirst(" ", "");
-
-        String strAmount = buffer.substring(0, buffer.indexOf(PARAM_DELIMITER));
-        Double amount = Double.parseDouble(strAmount);
-
-        buffer = buffer.replaceFirst(strAmount, "");
-        buffer = buffer.replaceFirst(" ", "");
-
-        Transaction transaction;
-
-        if (transactionType.equals(Payment.class.getSimpleName().toLowerCase())) {
-            PaymentType type = PaymentType.valueOf(buffer);
-            transaction = new Payment(id, amount, type);
-        } else {
-            PayrollType type = PayrollType.valueOf(buffer);
-            transaction = new Payroll(id, amount, type);
-        }
-
-        return transaction;
-    }
+    Parser parser = Parser.getInstance();
 
     @Override
     public List<Transaction> readTransactions() throws DAOException {
@@ -77,7 +24,11 @@ public class FileTransactionDAO implements TransactionDAO {
             String buffer;
 
             while ((buffer = bufferedReader.readLine()) != null) {
-                transactions.add(parseTransaction(buffer));
+                if(!buffer.equals(EMPTY_STRING)) {
+                    transactions.add(parser.parseTransaction(buffer));
+                } else {
+                    break;
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -94,7 +45,7 @@ public class FileTransactionDAO implements TransactionDAO {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(DATA_FILE_PATH, true))) {
 
-            bufferedWriter.write(parseString(transaction) + "\n");
+            bufferedWriter.write(parser.parseString(transaction) + NEW_LINE);
 
         } catch (IOException e) {
             throw new DAOException(e.getMessage(), e);
@@ -126,7 +77,7 @@ public class FileTransactionDAO implements TransactionDAO {
                     buffer = bufferedReader.readLine();
                 }
 
-                transaction = parseTransaction(buffer);
+                transaction = parser.parseTransaction(buffer);
 
             } catch (FileNotFoundException e) {
                 throw new DAOException(e.getMessage(), e);
@@ -162,7 +113,7 @@ public class FileTransactionDAO implements TransactionDAO {
                 }
 
                 bufferedReader.readLine();
-                bufferedWriter.write(parseString(transaction) + "\n");
+                bufferedWriter.write(parser.parseString(transaction) + "\n");
 
                 String buffer;
                 while ((buffer = bufferedReader.readLine()) != null) {
@@ -200,6 +151,10 @@ public class FileTransactionDAO implements TransactionDAO {
 
             try (RandomAccessFile raf = new RandomAccessFile(DATA_FILE_PATH, "rw")) {
 
+                for(int i = 0; i < stringNumber; i++){
+                    raf.readLine();
+                }
+
                 long writePosition = raf.getFilePointer();
                 raf.readLine();
 
@@ -222,11 +177,11 @@ public class FileTransactionDAO implements TransactionDAO {
                     raf.seek(readPosition);
                 }
 
-                if (lastString) {
-                    raf.setLength(writePosition - 1);
-                } else {
+             //   if (lastString) {
+              //      raf.setLength(writePosition - 1);
+                //} else {
                     raf.setLength(writePosition);
-                }
+               // }
             } catch (FileNotFoundException e) {
                 throw new DAOException(e.getMessage(), e);
             } catch (IOException e) {

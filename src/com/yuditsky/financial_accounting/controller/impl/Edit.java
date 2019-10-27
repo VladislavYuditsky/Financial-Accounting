@@ -20,8 +20,8 @@ public class Edit implements Command {
             String strId = request.substring(0, request.indexOf(PARAM_DELIMITER));
             int id = Integer.parseInt(strId);
 
-            request = request.replaceFirst(strId, "");
-            request = request.replaceFirst(" ", "");
+            request = request.replaceFirst(strId, EMPTY_STRING);
+            request = request.replaceFirst(PARAM_DELIMITER, EMPTY_STRING);
 
             String strAmount = request;
             double amount = Double.parseDouble(strAmount);

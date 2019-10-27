@@ -18,8 +18,8 @@ public class SignIn implements Command {
 
         String login = request.substring(0, request.indexOf(PARAM_DELIMITER));
 
-        request = request.replaceFirst(login, "");
-        request = request.replaceFirst(" ", "");
+        request = request.replaceFirst(login, EMPTY_STRING);
+        request = request.replaceFirst(PARAM_DELIMITER, EMPTY_STRING);
 
         String password = request;
 

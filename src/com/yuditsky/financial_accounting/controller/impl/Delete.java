@@ -9,14 +9,12 @@ import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
 public class Delete implements Command {
 
-    private final char paramDelimiter = ' ';
-
     @Override
     public String execute(String request) {
         String response;
 
         try {
-            request = request.substring(request.indexOf(paramDelimiter) + 1);
+            request = request.substring(request.indexOf(PARAM_DELIMITER) + 1);
 
             int id = Integer.parseInt(request);
 

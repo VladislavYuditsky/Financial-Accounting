@@ -8,14 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static com.yuditsky.financial_accounting.service.util.Constants.AUTHORIZATION_DATA_FILE_PATH;
-import static com.yuditsky.financial_accounting.service.util.Constants.PARAM_DELIMITER;
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
 public class FileUserDAO implements UserDAO {
 
     @Override
     public String signIn() throws DAOException {
-        String authorizationData = "";
+        String authorizationData = EMPTY_STRING;
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(AUTHORIZATION_DATA_FILE_PATH))) {
 

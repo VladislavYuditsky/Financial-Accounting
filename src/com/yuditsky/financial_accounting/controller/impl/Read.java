@@ -7,11 +7,11 @@ import com.yuditsky.financial_accounting.controller.command.Command;
 import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
+import com.yuditsky.financial_accounting.service.util.Parser;
 
 import java.util.List;
 
-import static com.yuditsky.financial_accounting.service.util.Constants.NO_TRANSACTION;
-import static com.yuditsky.financial_accounting.service.util.Constants.READING_ERROR;
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
 public class Read implements Command {
     @Override
@@ -27,19 +27,15 @@ public class Read implements Command {
         try {
 
             transactions = transactionService.readTransactions();
-            for (int i = 0; i < transactions.size(); i++) {
-                if (Payment.class.equals(transactions.get(i).getClass())) {
-                    stringBuffer.append(transactions.get(i).getId() + " " + Payment.class.getSimpleName().toLowerCase() + " "
-                            + transactions.get(i).getAmount() + " " + ((Payment) transactions.get(i)).getType() + "\n");
-                } else {
-                    stringBuffer.append(transactions.get(i).getId() + " " + Payroll.class.getSimpleName().toLowerCase() + " "
-                            + transactions.get(i).getAmount() + " " + ((Payroll) transactions.get(i)).getType() + "\n");
-                }
+            Parser parser = Parser.getInstance();
+
+            for(Transaction transaction : transactions){
+                stringBuffer.append(parser.parseString(transaction)).append(NEW_LINE);
             }
 
             response = String.valueOf(stringBuffer);
 
-            if (response.equals("")) {
+            if (response.equals(EMPTY_STRING)) {
                 response = NO_TRANSACTION;
             }
         } catch (ServiceException e) {

@@ -7,13 +7,9 @@ import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 import com.yuditsky.financial_accounting.service.util.TransactionIdGenerator;
 
-import static com.yuditsky.financial_accounting.service.util.Constants.ADDED;
-import static com.yuditsky.financial_accounting.service.util.Constants.ADDING_ERROR;
-import static com.yuditsky.financial_accounting.service.util.Constants.INVALID_COMMAND_ARGUMENTS;
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
 public class Add implements Command {
-
-    private final char paramDelimiter = ' ';
 
     @Override
     public String execute(String request) {
@@ -21,18 +17,18 @@ public class Add implements Command {
 
         try {
 
-            request = request.substring(request.indexOf(paramDelimiter) + 1);
+            request = request.substring(request.indexOf(PARAM_DELIMITER) + 1);
 
-            String transactionType = request.substring(0, request.indexOf(paramDelimiter));
+            String transactionType = request.substring(0, request.indexOf(PARAM_DELIMITER));
 
-            request = request.replaceFirst(transactionType, "");
-            request = request.replaceFirst(" ", "");
+            request = request.replaceFirst(transactionType, EMPTY_STRING);
+            request = request.replaceFirst(PARAM_DELIMITER, EMPTY_STRING);
 
-            String strAmount = request.substring(0, request.indexOf(paramDelimiter));
+            String strAmount = request.substring(0, request.indexOf(PARAM_DELIMITER));
             Double amount = Double.parseDouble(strAmount);
 
-            request = request.replaceFirst(strAmount, "");
-            request = request.replaceFirst(" ", "");
+            request = request.replaceFirst(strAmount, EMPTY_STRING);
+            request = request.replaceFirst(PARAM_DELIMITER, EMPTY_STRING);
 
             Transaction transaction;
 

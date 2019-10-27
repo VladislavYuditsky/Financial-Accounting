@@ -1,4 +1,0 @@
-4 payment 12.0 CAFE
-5 payment 120.0 CAFE
-2 payment 120.0 CAFE
-1 payment 12.0 CAFE
