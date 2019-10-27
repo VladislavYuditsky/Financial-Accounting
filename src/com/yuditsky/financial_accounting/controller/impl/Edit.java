@@ -5,7 +5,7 @@ import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 
-public class Edit implements Command { //Поправить все try/catch
+public class Edit implements Command {
 
     private final char paramDelimiter = ' ';
 

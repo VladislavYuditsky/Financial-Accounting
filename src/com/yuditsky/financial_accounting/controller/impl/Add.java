@@ -30,7 +30,7 @@ public class Add implements Command {
             request = request.replaceFirst(strAmount, "");
             request = request.replaceFirst(" ", "");
 
-            Transaction transaction = null;
+            Transaction transaction;
 
             TransactionIdGenerator transactionIdGenerator = TransactionIdGenerator.getInstance();
             int id = transactionIdGenerator.generate();

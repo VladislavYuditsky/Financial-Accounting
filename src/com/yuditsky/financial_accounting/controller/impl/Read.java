@@ -8,7 +8,6 @@ import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Read implements Command {
