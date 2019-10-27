@@ -5,6 +5,7 @@ import com.yuditsky.financial_accounting.controller.command.Command;
 import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
+import com.yuditsky.financial_accounting.service.util.TransactionIdGenerator;
 
 public class Add implements Command {
 
@@ -31,12 +32,15 @@ public class Add implements Command {
 
             Transaction transaction = null;
 
+            TransactionIdGenerator transactionIdGenerator = TransactionIdGenerator.getInstance();
+            int id = transactionIdGenerator.generate();
+
             if(transactionType.equals(Payment.class.getSimpleName().toLowerCase())){
                 PaymentType type = PaymentType.valueOf(request);
-                transaction = new Payment(amount, type);
+                transaction = new Payment(id, amount, type);
             } else {
                 PayrollType type = PayrollType.valueOf(request);
-                transaction = new Payroll(amount, type);
+                transaction = new Payroll(id, amount, type);
             }
 
             ServiceFactory serviceFactory = ServiceFactory.getInstance();
