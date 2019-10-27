@@ -1,11 +1,15 @@
 package com.yuditsky.financial_accounting.controller.impl;
 
 import com.yuditsky.financial_accounting.bean.Payment;
+import com.yuditsky.financial_accounting.bean.Payroll;
 import com.yuditsky.financial_accounting.bean.Transaction;
 import com.yuditsky.financial_accounting.controller.command.Command;
 import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Read implements Command {
     @Override
@@ -16,14 +20,18 @@ public class Read implements Command {
 
         StringBuffer stringBuffer = new StringBuffer();
         String response;
+        List<Transaction> transactions = new ArrayList<>();
 
         try {
 
-            for (int i = 0; i < transactionService.readTransactions().size(); i++) {
-                Transaction transaction = transactionService.readTransactions().get(i);
-                if ("payment".equals(transaction.getClass().getSimpleName().toLowerCase())) {
-                    stringBuffer.append(transaction.getId() + " " + "payment" + " "
-                            + transaction.getAmount() + " " + ((Payment) transaction).getType());
+            transactions = transactionService.readTransactions();
+            for (int i = 0; i < transactions.size(); i++) {
+                if (Payment.class.equals(transactions.get(i).getClass())) {
+                    stringBuffer.append(transactions.get(i).getId() + " " + Payment.class.getSimpleName().toLowerCase() + " "
+                            + transactions.get(i).getAmount() + " " + ((Payment) transactions.get(i)).getType() + "\n");
+                } else {
+                    stringBuffer.append(transactions.get(i).getId() + " " + Payroll.class.getSimpleName().toLowerCase() + " "
+                            + transactions.get(i).getAmount() + " " + ((Payroll) transactions.get(i)).getType() + "\n");
                 }
             }
 
