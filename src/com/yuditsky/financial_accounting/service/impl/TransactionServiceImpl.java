@@ -7,7 +7,6 @@ import com.yuditsky.financial_accounting.dao.TransactionDAO;
 import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.TransactionService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionServiceImpl implements TransactionService {
@@ -42,8 +41,28 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void edit() throws ServiceException {
+    public boolean editAmount(int id, double amount) throws ServiceException {
 
+        DAOFactory daoObjectFactory = DAOFactory.getInstance();
+        TransactionDAO transactionDAO = daoObjectFactory.getTransactionDAO();
+
+        Transaction transaction;
+
+        try {
+            transaction = transactionDAO.read(id);
+
+            if (transaction != null) {
+                transaction.setAmount(amount);
+            } else {
+                return false;
+            }
+
+            transactionDAO.replace(id, transaction);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
+        return true;
     }
 
     @Override
@@ -54,7 +73,7 @@ public class TransactionServiceImpl implements TransactionService {
             DAOFactory daoObjectFactory = DAOFactory.getInstance();
             TransactionDAO transactionDAO = daoObjectFactory.getTransactionDAO();
 
-            if(transactionDAO.delete(id)){
+            if (transactionDAO.delete(id)) {
                 deleted = true;
             }
 

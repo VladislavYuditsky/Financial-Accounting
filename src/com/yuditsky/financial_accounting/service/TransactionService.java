@@ -10,7 +10,7 @@ public interface TransactionService {
 
     void add(Transaction transaction) throws ServiceException;
 
-    void edit() throws ServiceException;
+    boolean editAmount(int id, double amount) throws ServiceException;
 
     boolean delete(int id) throws ServiceException;
 }

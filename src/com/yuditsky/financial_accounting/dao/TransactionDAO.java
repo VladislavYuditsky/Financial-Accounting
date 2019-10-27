@@ -10,7 +10,9 @@ public interface TransactionDAO {
 
     void add(Transaction transaction) throws DAOException;
 
-    void edit() throws DAOException;
+    Transaction read(int id) throws DAOException;
+
+    boolean replace(int id, Transaction transaction) throws DAOException;
 
     boolean delete(int id) throws DAOException;
 }
