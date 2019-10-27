@@ -4,23 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class User implements Serializable {
-    private String name;
     private boolean authorized;
 
     public User() {
     }
 
-    public User(String name, boolean authorized) {
-        this.name = name;
+    public User(boolean authorized) {
         this.authorized = authorized;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isAuthorized() {
@@ -36,20 +26,18 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return authorized == user.authorized &&
-                name.equals(user.name);
+        return authorized == user.authorized;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, authorized);
+        return Objects.hash(authorized);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", authorized=" + authorized +
+                "authorized=" + authorized +
                 '}';
     }
 }
