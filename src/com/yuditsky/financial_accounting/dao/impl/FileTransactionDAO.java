@@ -117,7 +117,7 @@ public class FileTransactionDAO implements TransactionDAO {
 
         for(int i = 0; i < transactions.size(); i++){
             if(transactions.get(i).getId() == id){
-                stringNumber = id;
+                stringNumber = i;
                 break;
             }
         }
@@ -132,7 +132,15 @@ public class FileTransactionDAO implements TransactionDAO {
 
                 long writePosition = raf.getFilePointer();
                 raf.readLine();
+
                 long readPosition = raf.getFilePointer();
+
+                boolean lastString = false;
+                if(raf.readLine() == null){
+                    lastString = true;
+                }
+
+                raf.seek(readPosition);
 
                 byte[] buffer = new byte[1024];
                 int bytesNumber;
@@ -144,7 +152,11 @@ public class FileTransactionDAO implements TransactionDAO {
                     raf.seek(readPosition);
                 }
 
-                raf.setLength(writePosition);
+                if(lastString){
+                    raf.setLength(writePosition - 1);
+                } else {
+                    raf.setLength(writePosition);
+                }
             } catch (FileNotFoundException e) {
                 throw new DAOException(e.getMessage(), e);
             } catch (IOException e) {
