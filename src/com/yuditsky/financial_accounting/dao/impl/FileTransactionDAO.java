@@ -110,6 +110,50 @@ public class FileTransactionDAO implements TransactionDAO {
     }
 
     @Override
-    public void delete() throws DAOException {
+    public boolean delete(int id) throws DAOException {
+
+        List<Transaction> transactions = readTransactions();
+        int stringNumber = -1;
+
+        for(int i = 0; i < transactions.size(); i++){
+            if(transactions.get(i).getId() == id){
+                stringNumber = id;
+                break;
+            }
+        }
+
+        if(stringNumber >= 0){
+
+            try (RandomAccessFile raf = new RandomAccessFile(DATA_FILE_PATH, "rw")) {
+
+                for (int i = 0; i < FIRST_TRANSACTION_POSITION + stringNumber; i++) {
+                    raf.readLine();
+                }
+
+                long writePosition = raf.getFilePointer();
+                raf.readLine();
+                long readPosition = raf.getFilePointer();
+
+                byte[] buffer = new byte[1024];
+                int bytesNumber;
+                while ((bytesNumber = raf.read(buffer)) != -1) {
+                    raf.seek(writePosition);
+                    raf.write(buffer, 0, bytesNumber);
+                    readPosition += bytesNumber;
+                    writePosition += bytesNumber;
+                    raf.seek(readPosition);
+                }
+
+                raf.setLength(writePosition);
+            } catch (FileNotFoundException e) {
+                throw new DAOException(e.getMessage(), e);
+            } catch (IOException e) {
+                throw new DAOException(e.getMessage(), e);
+            }
+        } else {
+            return false;
+        }
+
+        return true;
     }
 }
