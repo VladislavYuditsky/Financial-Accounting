@@ -14,7 +14,7 @@ public class Controller {
     public String executeTask(String request) {
         String commandName;
         Command executionCommand;
-        String response = null;
+        String response;
 
         try {
             commandName = request.substring(0, request.indexOf(paramDelimiter));
@@ -29,13 +29,12 @@ public class Controller {
 
             executionCommand = provider.getCommand(commandName);
 
-
             response = executionCommand.execute(request);
 
             if (commandName.equals(CommandName.SIGN_IN.toString().toLowerCase()) && response.equals("Welcome")) {
                 user.setAuthorized(true);
             }
-        }catch(StringIndexOutOfBoundsException e){
+        } catch (StringIndexOutOfBoundsException e) {
             response = executeTask(request + " ");
         }
 

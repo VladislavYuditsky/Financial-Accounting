@@ -2,9 +2,8 @@ package com.yuditsky.financial_accounting.controller;
 
 public enum CommandName {
     SIGN_IN,
-    ADD_PAYROLL,
-    ADD_PAYMENT,
-    READ_TRANSACTIONS,
+    ADD,
+    READ,
     EDIT,
     DELETE,
     WRONG_REQUEST

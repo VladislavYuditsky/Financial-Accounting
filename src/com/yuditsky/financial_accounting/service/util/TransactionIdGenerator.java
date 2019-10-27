@@ -30,10 +30,10 @@ public class TransactionIdGenerator {
 
             transactions.sort(Comparator.comparing(Transaction::getId));
 
-            if(transactions.size() != 0) {
+            if (transactions.size() != 0) {
                 int i;
                 for (i = 0; i < transactions.size(); i++) {
-                    if(transactions.get(i).getId() != i + 1){
+                    if (transactions.get(i).getId() != i + 1) {
                         return i + 1;
                     }
                 }

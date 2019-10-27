@@ -1,13 +1,18 @@
 package com.yuditsky.financial_accounting.bean;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class Transaction implements Serializable {
-    private int id; //util.TransactionGenerator - service(singleton) + dao lastId() / initialize - ServiceFactory /
+    private int id;
     private double amount;
 
-    protected Transaction(double amount) {
-        //this.id = id;
+    public Transaction(int id, double amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public Transaction(double amount) {
         this.amount = amount;
     }
 
@@ -36,10 +41,10 @@ public abstract class Transaction implements Serializable {
                 Double.compare(that.amount, amount) == 0;
     }
 
-    /*@Override
+    @Override
     public int hashCode() {
         return Objects.hash(id, amount);
-    }*/
+    }
 
     @Override
     public String toString() {

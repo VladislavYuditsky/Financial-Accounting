@@ -9,14 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FileUserDAO implements UserDAO {
-    private static final String DATA_FILE_PATH = "resources/user.txt";
+    private static final String AUTHORIZATION_DATA_FILE_PATH = "resources/authorization_data.txt";
     private static final char paramDelimiter = ' ';
 
     @Override
     public String signIn() throws DAOException {
         String authorizationData = "";
 
-        try(BufferedReader bufferedReader = new BufferedReader( new FileReader(DATA_FILE_PATH))){
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(AUTHORIZATION_DATA_FILE_PATH))) {
 
             authorizationData += bufferedReader.readLine();
             authorizationData += paramDelimiter;

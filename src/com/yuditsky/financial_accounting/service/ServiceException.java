@@ -1,7 +1,6 @@
 package com.yuditsky.financial_accounting.service;
 
 public class ServiceException extends Exception {
-    //public static final long serialVersionUID = 1L;
 
     public ServiceException() {
         super();

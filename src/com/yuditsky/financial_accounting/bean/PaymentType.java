@@ -1,6 +1,8 @@
 package com.yuditsky.financial_accounting.bean;
 
-public enum PaymentType { ////////////
+import java.io.Serializable;
+
+public enum PaymentType implements Serializable {
     PRODUCTS,
     CLOTHING,
     MEDICINES,

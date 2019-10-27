@@ -20,7 +20,7 @@ public class Read implements Command {
 
         StringBuffer stringBuffer = new StringBuffer();
         String response;
-        List<Transaction> transactions = new ArrayList<>();
+        List<Transaction> transactions;
 
         try {
 
@@ -36,6 +36,10 @@ public class Read implements Command {
             }
 
             response = String.valueOf(stringBuffer);
+
+            if(response.equals("")){
+                response = "No transaction";
+            }
         } catch (ServiceException e) {
             response = "Error during read procedure";
         }

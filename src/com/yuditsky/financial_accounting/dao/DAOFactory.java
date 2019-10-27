@@ -17,7 +17,7 @@ public class DAOFactory {
         return instance;
     }
 
-    public TransactionDAO getTransasctionDAO() {
+    public TransactionDAO getTransactionDAO() {
         return transactionDAOImpl;
     }
 

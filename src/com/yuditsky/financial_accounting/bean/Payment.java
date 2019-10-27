@@ -1,9 +1,15 @@
 package com.yuditsky.financial_accounting.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Payment extends Transaction { //надо ли имплементить сериализацию?
+public class Payment extends Transaction implements Serializable {
     private PaymentType type;
+
+    public Payment(int id, double amount, PaymentType type) {
+        super(id, amount);
+        this.type = type;
+    }
 
     public Payment(double amount, PaymentType type) {
         super(amount);
@@ -27,14 +33,14 @@ public class Payment extends Transaction { //надо ли имплементи�
         return type == payment.type;
     }
 
-    @Override //Seriall
+    @Override
     public int hashCode() {
         return Objects.hash(type);
     }
 
     @Override
     public String toString() {
-        return "AddPayment{" +
+        return "Add{" +
                 "type=" + type +
                 '}';
     }
