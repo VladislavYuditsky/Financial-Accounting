@@ -5,6 +5,8 @@ import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
+
 public class Delete implements Command {
 
     private final char paramDelimiter = ' ';
@@ -22,15 +24,15 @@ public class Delete implements Command {
             TransactionService transactionService = serviceFactory.getTransactionService();
 
             if (transactionService.delete(id)) {
-                response = "Deleted";
+                response = DELETED;
             } else {
-                response = "No transaction with given id";
+                response = NO_TRANSACTION_WITH_GIVEN_ID;
             }
 
         } catch (ServiceException e) {
-            response = "Error during deletion";
+            response = DELETION_ERROR;
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            response = "Invalid command arguments";
+            response = INVALID_COMMAND_ARGUMENTS;
         }
 
         return response;

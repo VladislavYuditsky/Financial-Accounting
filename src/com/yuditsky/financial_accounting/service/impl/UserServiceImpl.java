@@ -12,14 +12,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean signIn(String login, String password) throws ServiceException {
 
-        if (login == null || login.isEmpty()) {
-            throw new ServiceException("Incorrect login");
-        }
-
-        if (password == null || password.isEmpty()) {
-            throw new ServiceException("Incorrect password");
-        }
-
         String authorizationData;
 
         try {

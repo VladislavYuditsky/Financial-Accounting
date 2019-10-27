@@ -8,9 +8,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yuditsky.financial_accounting.service.util.Constants.DATA_FILE_PATH;
+import static com.yuditsky.financial_accounting.service.util.Constants.PARAM_DELIMITER;
+
 public class FileTransactionDAO implements TransactionDAO {
-    private static final String DATA_FILE_PATH = "resources/data.txt";
-    private final char paramDelimiter = ' ';
 
     private String parseString(Transaction transaction) { //парсеры в логику
 
@@ -37,18 +38,18 @@ public class FileTransactionDAO implements TransactionDAO {
 
     private Transaction parseTransaction(String buffer) {
 
-        String strId = buffer.substring(0, buffer.indexOf(paramDelimiter));
+        String strId = buffer.substring(0, buffer.indexOf(PARAM_DELIMITER));
         int id = Integer.parseInt(strId);
 
         buffer = buffer.replaceFirst(strId, "");
         buffer = buffer.replaceFirst(" ", "");
 
-        String transactionType = buffer.substring(0, buffer.indexOf(paramDelimiter));
+        String transactionType = buffer.substring(0, buffer.indexOf(PARAM_DELIMITER));
 
         buffer = buffer.replaceFirst(transactionType, "");
         buffer = buffer.replaceFirst(" ", "");
 
-        String strAmount = buffer.substring(0, buffer.indexOf(paramDelimiter));
+        String strAmount = buffer.substring(0, buffer.indexOf(PARAM_DELIMITER));
         Double amount = Double.parseDouble(strAmount);
 
         buffer = buffer.replaceFirst(strAmount, "");

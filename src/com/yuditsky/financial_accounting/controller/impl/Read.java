@@ -10,6 +10,9 @@ import com.yuditsky.financial_accounting.service.TransactionService;
 
 import java.util.List;
 
+import static com.yuditsky.financial_accounting.service.util.Constants.NO_TRANSACTION;
+import static com.yuditsky.financial_accounting.service.util.Constants.READING_ERROR;
+
 public class Read implements Command {
     @Override
     public String execute(String request) {
@@ -37,10 +40,10 @@ public class Read implements Command {
             response = String.valueOf(stringBuffer);
 
             if (response.equals("")) {
-                response = "No transaction";
+                response = NO_TRANSACTION;
             }
         } catch (ServiceException e) {
-            response = "Error during read procedure";
+            response = READING_ERROR;
         }
 
         return response;

@@ -5,18 +5,18 @@ import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.UserService;
 
-public class SignIn implements Command {
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
-    private final char paramDelimiter = ' ';
+public class SignIn implements Command {
 
     @Override
     public String execute(String request) throws StringIndexOutOfBoundsException {
 
         String response = null;
 
-        request = request.substring(request.indexOf(paramDelimiter) + 1);
+        request = request.substring(request.indexOf(PARAM_DELIMITER) + 1);
 
-        String login = request.substring(0, request.indexOf(paramDelimiter));
+        String login = request.substring(0, request.indexOf(PARAM_DELIMITER));
 
         request = request.replaceFirst(login, "");
         request = request.replaceFirst(" ", "");
@@ -28,13 +28,13 @@ public class SignIn implements Command {
 
         try {
             if (userService.signIn(login, password)) {
-                response = "Welcome";
+                response = WELCOME;
             } else {
-                response = "Wrong login or password";
+                response = WRONG_LOGIN_OR_PASSWORD;
             }
 
         } catch (ServiceException e) {
-            response = "Error during login procedure";
+            response = LOGIN_ERROR;
         }
 
         return response;

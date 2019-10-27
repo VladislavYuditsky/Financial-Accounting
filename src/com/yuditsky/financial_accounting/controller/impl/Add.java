@@ -7,6 +7,10 @@ import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 import com.yuditsky.financial_accounting.service.util.TransactionIdGenerator;
 
+import static com.yuditsky.financial_accounting.service.util.Constants.ADDED;
+import static com.yuditsky.financial_accounting.service.util.Constants.ADDING_ERROR;
+import static com.yuditsky.financial_accounting.service.util.Constants.INVALID_COMMAND_ARGUMENTS;
+
 public class Add implements Command {
 
     private final char paramDelimiter = ' ';
@@ -47,11 +51,11 @@ public class Add implements Command {
             TransactionService transactionService = serviceFactory.getTransactionService();
 
             transactionService.add(transaction);
-            response = "Added";
+            response = ADDED;
         } catch (ServiceException e) {
-            response = "Error during adding";
+            response = ADDING_ERROR;
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            response = "Invalid command arguments";
+            response = INVALID_COMMAND_ARGUMENTS;
         }
 
         return response;

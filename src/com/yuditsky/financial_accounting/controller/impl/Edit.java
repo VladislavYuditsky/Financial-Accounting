@@ -5,9 +5,9 @@ import com.yuditsky.financial_accounting.service.ServiceException;
 import com.yuditsky.financial_accounting.service.ServiceFactory;
 import com.yuditsky.financial_accounting.service.TransactionService;
 
-public class Edit implements Command {
+import static com.yuditsky.financial_accounting.service.util.Constants.*;
 
-    private final char paramDelimiter = ' ';
+public class Edit implements Command {
 
     @Override
     public String execute(String request) {
@@ -15,9 +15,9 @@ public class Edit implements Command {
         String response;
 
         try {
-            request = request.substring(request.indexOf(paramDelimiter) + 1);
+            request = request.substring(request.indexOf(PARAM_DELIMITER) + 1);
 
-            String strId = request.substring(0, request.indexOf(paramDelimiter));
+            String strId = request.substring(0, request.indexOf(PARAM_DELIMITER));
             int id = Integer.parseInt(strId);
 
             request = request.replaceFirst(strId, "");
@@ -30,14 +30,14 @@ public class Edit implements Command {
             TransactionService transactionService = serviceFactory.getTransactionService();
 
             if (transactionService.editAmount(id, amount)) {
-                response = "Edited";
+                response = EDITED;
             } else {
-                response = "No transaction with given id";
+                response = NO_TRANSACTION_WITH_GIVEN_ID;
             }
         } catch (ServiceException e) {
-            response = "Error during editing";
+            response = EDITING_ERROR;
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            response = "Invalid command arguments";
+            response = INVALID_COMMAND_ARGUMENTS;
         }
 
         return response;

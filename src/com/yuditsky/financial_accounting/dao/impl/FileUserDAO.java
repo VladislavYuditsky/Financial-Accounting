@@ -8,9 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static com.yuditsky.financial_accounting.service.util.Constants.AUTHORIZATION_DATA_FILE_PATH;
+import static com.yuditsky.financial_accounting.service.util.Constants.PARAM_DELIMITER;
+
 public class FileUserDAO implements UserDAO {
-    private static final String AUTHORIZATION_DATA_FILE_PATH = "resources/authorization_data.txt";
-    private static final char paramDelimiter = ' ';
 
     @Override
     public String signIn() throws DAOException {
@@ -19,7 +20,7 @@ public class FileUserDAO implements UserDAO {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(AUTHORIZATION_DATA_FILE_PATH))) {
 
             authorizationData += bufferedReader.readLine();
-            authorizationData += paramDelimiter;
+            authorizationData += PARAM_DELIMITER;
             authorizationData += bufferedReader.readLine();
 
         } catch (FileNotFoundException e) {
