@@ -12,5 +12,5 @@ public interface TransactionService {
 
     void edit() throws ServiceException;
 
-    void delete() throws ServiceException;
+    void delete(int id) throws ServiceException;
 }

@@ -47,7 +47,14 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void delete() throws ServiceException {
+    public void delete(int id) throws ServiceException {
+        try {
+            DAOFactory daoObjectFactory = DAOFactory.getInstance();
+            TransactionDAO transactionDAO = daoObjectFactory.getTransactionDAO();
 
+            transactionDAO.delete(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
     }
 }

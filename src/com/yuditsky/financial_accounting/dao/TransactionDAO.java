@@ -12,5 +12,5 @@ public interface TransactionDAO {
 
     void edit() throws DAOException;
 
-    void delete() throws DAOException;
+    boolean delete(int id) throws DAOException;
 }
