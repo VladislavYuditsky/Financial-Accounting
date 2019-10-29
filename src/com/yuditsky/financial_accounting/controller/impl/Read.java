@@ -29,7 +29,7 @@ public class Read implements Command {
             transactions = transactionService.readTransactions();
             Parser parser = Parser.getInstance();
 
-            for(Transaction transaction : transactions){
+            for (Transaction transaction : transactions) {
                 stringBuffer.append(parser.parseString(transaction)).append(NEW_LINE);
             }
 

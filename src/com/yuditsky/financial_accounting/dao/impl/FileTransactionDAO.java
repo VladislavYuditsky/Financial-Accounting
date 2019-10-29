@@ -15,6 +15,21 @@ public class FileTransactionDAO implements TransactionDAO {
 
     Parser parser = Parser.getInstance();
 
+    public int find(int id) throws DAOException {
+
+        List<Transaction> transactions = readTransactions();
+        int stringNumber = -1;
+
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getId() == id) {
+                stringNumber = i;
+                break;
+            }
+        }
+
+        return stringNumber;
+    }
+
     @Override
     public List<Transaction> readTransactions() throws DAOException {
         List<Transaction> transactions = new ArrayList<>();
@@ -24,7 +39,7 @@ public class FileTransactionDAO implements TransactionDAO {
             String buffer;
 
             while ((buffer = bufferedReader.readLine()) != null) {
-                if(!buffer.equals(EMPTY_STRING)) {
+                if (!buffer.equals(EMPTY_STRING)) {
                     transactions.add(parser.parseTransaction(buffer));
                 } else {
                     break;
@@ -55,19 +70,10 @@ public class FileTransactionDAO implements TransactionDAO {
     @Override
     public Transaction read(int id) throws DAOException {
 
-        List<Transaction> transactions = readTransactions();
-        int stringNumber = -1;
-
-        for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getId() == id) {
-                stringNumber = i;
-                break;
-            }
-        }
-
         Transaction transaction = null;
+        int stringNumber;
 
-        if (stringNumber >= 0) {
+        if ((stringNumber = find(id)) >= 0) {
 
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
 
@@ -90,19 +96,12 @@ public class FileTransactionDAO implements TransactionDAO {
     }
 
     @Override
-    public boolean replace(int id, Transaction transaction) throws DAOException { //вынести проверку имеется ли строка с заданным ID
-        List<Transaction> transactions = readTransactions();
-        int stringNumber = -1;
+    public boolean replace(int id, Transaction transaction) throws DAOException {
 
-        for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getId() == id) {
-                stringNumber = i;
-                break;
-            }
-        }
+        int stringNumber;
 
-        if (stringNumber >= 0) {
-            File tmp = null;
+        if ((stringNumber = find(id)) >= 0) {
+            File tmp;
 
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DATA_FILE_PATH));
                  BufferedWriter bufferedWriter
@@ -121,7 +120,7 @@ public class FileTransactionDAO implements TransactionDAO {
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DAOException(e.getMessage(), e);
             }
 
             File oldFile = new File(DATA_FILE_PATH);
@@ -137,21 +136,13 @@ public class FileTransactionDAO implements TransactionDAO {
     @Override
     public boolean delete(int id) throws DAOException {
 
-        List<Transaction> transactions = readTransactions();
-        int stringNumber = -1;
+        int stringNumber;
 
-        for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getId() == id) {
-                stringNumber = i;
-                break;
-            }
-        }
-
-        if (stringNumber >= 0) {
+        if ((stringNumber = find(id)) >= 0) {
 
             try (RandomAccessFile raf = new RandomAccessFile(DATA_FILE_PATH, "rw")) {
 
-                for(int i = 0; i < stringNumber; i++){
+                for (int i = 0; i < stringNumber; i++) {
                     raf.readLine();
                 }
 
@@ -159,11 +150,6 @@ public class FileTransactionDAO implements TransactionDAO {
                 raf.readLine();
 
                 long readPosition = raf.getFilePointer();
-
-                boolean lastString = false;
-                if (raf.readLine() == null) {
-                    lastString = true;
-                }
 
                 raf.seek(readPosition);
 
@@ -177,11 +163,7 @@ public class FileTransactionDAO implements TransactionDAO {
                     raf.seek(readPosition);
                 }
 
-             //   if (lastString) {
-              //      raf.setLength(writePosition - 1);
-                //} else {
-                    raf.setLength(writePosition);
-               // }
+                raf.setLength(writePosition);
             } catch (FileNotFoundException e) {
                 throw new DAOException(e.getMessage(), e);
             } catch (IOException e) {
